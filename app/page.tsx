@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Linkedin, Instagram } from "lucide-react";
+import { LandingCharts } from "@/components/landing/landing-charts";
 
 export default function Home() {
   return (
@@ -29,6 +31,33 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Value Proposition Section */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-10 flex flex-col items-center text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">¿Por qué Minuta Legal?</h2>
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200 max-w-3xl">
+            <span className="font-semibold text-primary">Minuta Legal</span> es la plataforma que revoluciona la generación y gestión de documentos legales en Latinoamérica. Nuestra IA especializada permite a abogados y clientes crear minutas profesionales en minutos, reducir errores y acelerar procesos legales.
+          </p>
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-6">
+            <li className="flex flex-col items-center">
+              <span className="text-5xl mb-2">⚡️</span>
+              <span className="font-semibold text-lg">Rápido y Eficiente</span>
+              <span className="text-gray-600 dark:text-gray-400">Genera documentos en minutos, no horas.</span>
+            </li>
+            <li className="flex flex-col items-center">
+              <span className="text-5xl mb-2">🤖</span>
+              <span className="font-semibold text-lg">IA Legal Especializada</span>
+              <span className="text-gray-600 dark:text-gray-400">Precisión y calidad en cada minuta.</span>
+            </li>
+            <li className="flex flex-col items-center">
+              <span className="text-5xl mb-2">🌎</span>
+              <span className="font-semibold text-lg">Enfocado en LATAM</span>
+              <span className="text-gray-600 dark:text-gray-400">Adaptado a la realidad jurídica de la región.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       {/* Features Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -53,87 +82,111 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Pricing Section */}
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Planes de Suscripción</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {/* Plan Personal */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border border-gray-200 dark:border-gray-800">
+            <h3 className="text-2xl font-bold mb-2">Personal</h3>
+            <p className="text-5xl font-extrabold text-primary mb-2">$20<span className="text-lg font-medium text-gray-500 dark:text-gray-400">/mes</span></p>
+            <ul className="text-gray-700 dark:text-gray-300 space-y-2 mb-6">
+              <li>✔️ Generación ilimitada de minutas</li>
+              <li>✔️ Acceso al chat legal IA</li>
+              <li>✔️ Soporte por email</li>
+              <li>✔️ Panel de usuario</li>
+            </ul>
+            <Button size="lg" className="w-full">Elegir Personal</Button>
+          </div>
+          {/* Plan Empresarial */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border-2 border-primary">
+            <h3 className="text-2xl font-bold mb-2">Empresarial</h3>
+            <p className="text-4xl font-extrabold text-primary mb-2">A convenir</p>
+            <ul className="text-gray-700 dark:text-gray-300 space-y-2 mb-6">
+              <li>✔️ Todo lo del plan Personal</li>
+              <li>✔️ Integración con sistemas empresariales</li>
+              <li>✔️ Soporte prioritario</li>
+              <li>✔️ Minutas personalizadas y API</li>
+              <li>✔️ Gestión multiusuario</li>
+            </ul>
+            <Button size="lg" variant="outline" className="w-full">Contactar Ventas</Button>
+          </div>
+        </div>
+      </div>
+
+      {/* App Flow Section */}
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">¿Cómo funciona Minuta Legal?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+          <div className="flex flex-col items-center text-center">
+            <span className="text-4xl mb-2">📝</span>
+            <h4 className="font-semibold mb-1">1. Solicita tu minuta</h4>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">El usuario describe su necesidad legal en el chat.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <span className="text-4xl mb-2">🤖</span>
+            <h4 className="font-semibold mb-1">2. IA genera el borrador</h4>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">La IA crea un documento legal personalizado en minutos.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <span className="text-4xl mb-2">👨‍⚖️</span>
+            <h4 className="font-semibold mb-1">3. Revisión profesional</h4>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Un abogado revisa y valida la minuta para asegurar calidad.</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <span className="text-4xl mb-2">✅</span>
+            <h4 className="font-semibold mb-1">4. Firma y descarga</h4>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">El usuario recibe la minuta lista para firmar y usar.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Statistics Section */}
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Resultados y Eficiencia</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <span className="text-5xl mb-2">⏱️</span>
+            <h3 className="text-2xl font-bold mb-2 text-primary">80% menos tiempo</h3>
+            <p className="text-gray-700 dark:text-gray-300">Reducción promedio en la generación de documentos legales.</p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <span className="text-5xl mb-2">📈</span>
+            <h3 className="text-2xl font-bold mb-2 text-primary">+95% precisión</h3>
+            <p className="text-gray-700 dark:text-gray-300">Minutas validadas por abogados y adaptadas a cada caso.</p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-8 flex flex-col items-center text-center">
+            <span className="text-5xl mb-2">💼</span>
+            <h3 className="text-2xl font-bold mb-2 text-primary">+500 usuarios</h3>
+            <p className="text-gray-700 dark:text-gray-300">Clientes satisfechos en toda Latinoamérica.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Dashboard-like Charts Section */}
+      <LandingCharts />
+
       {/* Footer */}
       <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Minuta Legal</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Tu asistente legal inteligente para una gestión jurídica eficiente.
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Navegación</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/login" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                    Iniciar Sesión
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/chat" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                    Chat
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/dashboard" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                    Dashboard
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Legal</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/terminos" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                    Términos y Condiciones
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacidad" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                    Política de Privacidad
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Contacto</h4>
-              <ul className="space-y-2">
-                <li className="text-sm text-gray-600 dark:text-gray-400">
-                  Email: info@minutalegal.com
-                </li>
-                <li className="text-sm text-gray-600 dark:text-gray-400">
-                  Tel: +1 (555) 123-4567
-                </li>
-              </ul>
-            </div>
+        <div className="container mx-auto px-4 py-12 flex flex-col items-center justify-center gap-4">
+          <div className="space-y-2 text-center">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Minuta Legal</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Tu asistente legal inteligente para una gestión jurídica eficiente.
+            </p>
           </div>
-
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                © 2024 Minuta Legal. Todos los derechos reservados.
-              </p>
-              <div className="flex gap-4 mt-4 md:mt-0">
-                <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                  <span className="sr-only">LinkedIn</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                  </svg>
-                </Link>
-                <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                  <span className="sr-only">Twitter</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </Link>
-              </div>
-            </div>
+          <div className="flex gap-4 mt-2">
+            <a href="https://www.linkedin.com/company/wofix-io" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin className="h-6 w-6 text-gray-600 dark:text-gray-300 hover:text-primary transition" />
+            </a>
+            <a href="https://instagram.com/wofix.io" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram className="h-6 w-6 text-gray-600 dark:text-gray-300 hover:text-primary transition" />
+            </a>
+          </div>
+          <div className="flex flex-wrap gap-4 items-center justify-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <a href="mailto:info@minutalegal.com" className="underline hover:text-primary">Contacto</a>
+            <a href="/terminos" className="underline hover:text-primary">Términos y Condiciones</a>
+            <span>Esta aplicación fue creada por <a href="https://wofix.io" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">wofix.io</a></span>
           </div>
         </div>
       </footer>
