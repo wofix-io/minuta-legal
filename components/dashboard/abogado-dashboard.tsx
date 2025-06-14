@@ -1,26 +1,46 @@
 "use client"
 
+import { useState } from "react"
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { StatsCharts } from "@/components/dashboard/stats-charts"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter
+} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "@/components/ui/tabs"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter
+} from "@/components/ui/dialog"
 import { MinutaViewer } from "@/components/minuta/minuta-viewer"
 
-// Función para formatear números en formato chileno
+// ✅ Importa el tipo real desde tus tipos compartidos
+import type { MinutaGenerada } from "@/types/minuta"
+
+// ✅ Formateo en CLP
 const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('es-CL', {
-    style: 'currency',
-    currency: 'CLP',
+  return new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(amount)
 }
 
 export function AbogadoDashboard() {
-  // Datos de ejemplo
   const metrics = {
     totalEarnings: 1500000,
     pendingMinutes: 3,
@@ -33,13 +53,28 @@ export function AbogadoDashboard() {
   const [motivo, setMotivo] = useState("")
   const [firma, setFirma] = useState("")
 
-  // Ejemplo de minuta generada
-  const minutaEjemplo = {
+  // ✅ Objeto completamente tipado según MinutaGenerada
+  const minutaEjemplo: MinutaGenerada = {
+    id: "abc123",
+    tipo: "compraventa",
+    cliente: "Carlos Pérez",
+    fecha: "2024-03-15",
+    estado: "pendiente",
+    datos: {
+      comprador: "Carlos Pérez",
+      vendedor: "Juan Pérez",
+      vehiculo: "Toyota Corolla 2015"
+      // puedes agregar más campos si el template los requiere
+    },
     documento: `MINUTA DE COMPRA VENTA DE VEHÍCULO\n\nEn Santiago, a 20/03/2024, entre los suscritos...\n\n[Documento completo de minuta]\n\nEL VENDEDOR                                EL COMPRADOR\n_________________                         _________________\nJuan Pérez                                 Carlos Pérez`,
-    version: 1,
     fechaGeneracion: new Date().toISOString(),
-    firmas: { cliente: true, abogado: false }
+    version: 1,
+    firmas: {
+      cliente: true,
+      abogado: false
+    }
   }
+  
 
   return (
     <div className="flex min-h-screen">
@@ -84,7 +119,6 @@ export function AbogadoDashboard() {
             </TabsList>
             <TabsContent value="pending" className="mt-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {/* Ejemplo de minuta pendiente */}
                 <Card>
                   <CardHeader>
                     <CardTitle>Minuta de Compraventa</CardTitle>
@@ -96,28 +130,39 @@ export function AbogadoDashboard() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full" onClick={() => { setOpen(true); setAccion(""); setMotivo(""); setFirma(""); }}>Revisar</Button>
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        setOpen(true)
+                        setAccion("")
+                        setMotivo("")
+                        setFirma("")
+                      }}
+                    >
+                      Revisar
+                    </Button>
                   </CardFooter>
                 </Card>
               </div>
             </TabsContent>
             <TabsContent value="completed" className="mt-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {/* Aquí irían las minutas completadas */}
+                {/* Minutas completadas aquí */}
               </div>
             </TabsContent>
           </Tabs>
         </div>
 
-        {/* Modal de revisión de minuta */}
+        {/* Modal revisión de minuta */}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Revisión de Minuta</DialogTitle>
             </DialogHeader>
             <div className="mb-4">
-              <MinutaViewer minuta={minutaEjemplo as any} onFirmar={() => {}} esAbogado />
+              <MinutaViewer minuta={minutaEjemplo} onFirmar={() => {}} esAbogado />
             </div>
+
             {accion === "rechazar" && (
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">Motivo del rechazo</label>
@@ -129,6 +174,7 @@ export function AbogadoDashboard() {
                 />
               </div>
             )}
+
             {accion === "aceptar" && (
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">Firma del abogado</label>
@@ -140,6 +186,7 @@ export function AbogadoDashboard() {
                 />
               </div>
             )}
+
             <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
               {accion === "" && (
                 <>
@@ -150,13 +197,29 @@ export function AbogadoDashboard() {
               {accion === "rechazar" && (
                 <>
                   <Button variant="outline" onClick={() => setAccion("")}>Volver</Button>
-                  <Button disabled={!motivo.trim()} onClick={() => { setOpen(false); /* lógica de rechazo */ }}>Enviar Rechazo</Button>
+                  <Button
+                    disabled={!motivo.trim()}
+                    onClick={() => {
+                      setOpen(false)
+                      // lógica de rechazo
+                    }}
+                  >
+                    Enviar Rechazo
+                  </Button>
                 </>
               )}
               {accion === "aceptar" && (
                 <>
                   <Button variant="outline" onClick={() => setAccion("")}>Volver</Button>
-                  <Button disabled={!firma.trim()} onClick={() => { setOpen(false); /* lógica de firma */ }}>Firmar y Enviar</Button>
+                  <Button
+                    disabled={!firma.trim()}
+                    onClick={() => {
+                      setOpen(false)
+                      // lógica de firma
+                    }}
+                  >
+                    Firmar y Enviar
+                  </Button>
                 </>
               )}
             </DialogFooter>
@@ -165,4 +228,4 @@ export function AbogadoDashboard() {
       </main>
     </div>
   )
-} 
+}
