@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { MinutaService } from "@/services/minuta-service"
+import { cn } from "@/lib/utils"
 
 type Message = {
   role: "user" | "assistant"
@@ -89,33 +90,37 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
-            <Card
-              className={`max-w-[80%] p-4 ${
-                message.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
-              }`}
+    <div className="flex h-[calc(100vh-4rem)] flex-col">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6">
+        <div className="mx-auto max-w-3xl space-y-4">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={cn(
+                "flex w-full",
+                message.role === "user" ? "justify-end" : "justify-start"
+              )}
             >
-              <p className="whitespace-pre-wrap">{message.content}</p>
-            </Card>
-          </div>
-        ))}
-        {isGenerating && (
-          <div className="flex justify-start">
-            <Card className="max-w-[80%] p-4 bg-muted">
-              <p>Generando respuesta...</p>
-            </Card>
-          </div>
-        )}
+              <div
+                className={cn(
+                  "rounded-lg px-4 py-2 max-w-[80%] md:max-w-[70%]",
+                  message.role === "user"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted"
+                )}
+              >
+                <p className="text-sm">{message.content}</p>
+              </div>
+            </div>
+          ))}
+          {isGenerating && (
+            <div className="flex justify-start">
+              <Card className="max-w-[80%] p-4 bg-muted">
+                <p>Generando respuesta...</p>
+              </Card>
+            </div>
+          )}
+        </div>
       </div>
 
       {minutaData && (
@@ -153,17 +158,22 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-4 border-t">
-        <div className="flex gap-2">
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Escribe tu mensaje..."
-            className="flex-1"
-          />
-          <Button type="submit">Enviar</Button>
+      <div className="border-t p-4 md:p-6">
+        <div className="mx-auto max-w-3xl">
+          <form onSubmit={handleSubmit} className="flex gap-4">
+            <Input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Escribe tu mensaje..."
+              className="flex-1"
+            />
+            <Button type="submit" disabled={!input.trim()}>
+              Enviar
+            </Button>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   )
 } 

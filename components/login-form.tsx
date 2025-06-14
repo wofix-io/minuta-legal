@@ -9,6 +9,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { users } from "@/lib/data"
+import { Home } from "lucide-react"
+import Link from "next/link"
 
 export function LoginForm({
   className,
@@ -47,11 +49,19 @@ export function LoginForm({
         <CardContent className="grid p-0 md:grid-cols-2">
           <form onSubmit={handleSubmit} className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Bienvenido a Minuta Legal</h1>
-                <p className="text-muted-foreground text-balance">
-                  Inicia sesión en tu cuenta
-                </p>
+              <div className="flex items-center justify-between">
+                <Button variant="ghost" size="icon" asChild>
+                  <Link href="/">
+                    <Home className="h-5 w-5" />
+                  </Link>
+                </Button>
+                <div className="flex flex-col items-center text-center">
+                  <h1 className="text-2xl font-bold">Bienvenido a Minuta Legal</h1>
+                  <p className="text-muted-foreground text-balance">
+                    Inicia sesión en tu cuenta
+                  </p>
+                </div>
+                <div className="w-10" /> {/* Espaciador para mantener el título centrado */}
               </div>
 
               {error && (
@@ -72,11 +82,11 @@ export function LoginForm({
               </div>
 
               <div className="grid gap-3">
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                   <Label htmlFor="password">Contraseña</Label>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
+                    className="text-sm text-primary hover:underline"
                   >
                     ¿Olvidaste tu contraseña?
                   </a>
@@ -94,7 +104,7 @@ export function LoginForm({
                 <RadioGroup
                   defaultValue="cliente"
                   onValueChange={(value: "abogado" | "cliente") => setUserType(value)}
-                  className="flex gap-4"
+                  className="flex flex-col sm:flex-row gap-4"
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="cliente" id="cliente" />
@@ -113,7 +123,7 @@ export function LoginForm({
 
               <div className="text-center text-sm">
                 ¿No tienes una cuenta?{" "}
-                <a href="/register" className="underline underline-offset-4">
+                <a href="/register" className="text-primary hover:underline">
                   Regístrate
                 </a>
               </div>

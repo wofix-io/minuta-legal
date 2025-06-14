@@ -122,7 +122,7 @@ export function RegisterForm({
                 <RadioGroup
                   defaultValue="cliente"
                   onValueChange={(value: "abogado" | "cliente") => setUserType(value)}
-                  className="flex gap-4"
+                  className="flex flex-col sm:flex-row gap-4"
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="cliente" id="cliente" />
@@ -154,7 +154,7 @@ export function RegisterForm({
 
               <div className="text-center text-sm">
                 ¿Ya tienes una cuenta?{" "}
-                <a href="/login" className="underline underline-offset-4">
+                <a href="/login" className="text-primary hover:underline">
                   Iniciar Sesión
                 </a>
               </div>

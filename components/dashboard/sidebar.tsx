@@ -1,112 +1,114 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu, Home, Calendar, Mail, User, Settings, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  LayoutDashboard,
-  Calendar,
-  Mail,
-  User,
-  Settings,
-  LogOut,
-} from "lucide-react"
 
 const menuItems = [
   {
     title: "Dashboard",
     href: "/dashboard",
-    icon: LayoutDashboard,
+    icon: Home
   },
   {
     title: "Calendario",
     href: "/dashboard/calendar",
-    icon: Calendar,
+    icon: Calendar
   },
   {
     title: "Correos",
     href: "/dashboard/mail",
-    icon: Mail,
+    icon: Mail
   },
   {
     title: "Perfil",
     href: "/dashboard/profile",
-    icon: User,
+    icon: User
   },
   {
     title: "Configuración",
     href: "/dashboard/settings",
-    icon: Settings,
-  },
+    icon: Settings
+  }
 ]
 
 export function DashboardSidebar() {
   const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div
-      className={cn(
-        "fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r bg-background transition-all duration-300",
-        isCollapsed && "w-20"
-      )}
-    >
+    <>
+      {/* Botón de menú para móvil */}
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="md:hidden fixed top-4 left-4 z-50">
+            <Menu className="h-5 w-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-80 p-0">
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
+
+      {/* Sidebar para desktop */}
+      <div className="hidden md:block w-80 border-r bg-card">
+        <SidebarContent />
+      </div>
+    </>
+  )
+}
+
+function SidebarContent() {
+  const pathname = usePathname()
+
+  return (
+    <>
       <div className="flex h-16 items-center border-b px-4">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <span className={cn("text-lg font-semibold", isCollapsed && "hidden")}>
-            Minuta Legal
-          </span>
-        </Link>
+        <h2 className="text-lg font-semibold">Minuta Legal</h2>
       </div>
 
-      <ScrollArea className="flex-1">
+      <ScrollArea className="h-[calc(100vh-4rem)]">
         <div className="space-y-1 p-2">
           {menuItems.map((item) => (
-            <Link
+            <Button
               key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                pathname === item.href
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-muted"
-              )}
+              variant={pathname === item.href ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              asChild
             >
-              <item.icon className="h-5 w-5" />
-              <span className={isCollapsed ? "hidden" : ""}>{item.title}</span>
-            </Link>
+              <a href={item.href}>
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.title}
+              </a>
+            </Button>
           ))}
         </div>
-      </ScrollArea>
 
-      <div className="border-t p-4">
-        <div className="flex items-center gap-3">
-          <Avatar>
-            <AvatarImage src="/avatars/abogado1.jpg" alt="Avatar" />
-            <AvatarFallback>JP</AvatarFallback>
-          </Avatar>
-          <div className={cn("flex-1", isCollapsed && "hidden")}>
-            <p className="text-sm font-medium">Dr. Juan Pérez</p>
-            <p className="text-xs text-muted-foreground">juan.perez@minutalegal.com</p>
+        <div className="mt-auto border-t p-4">
+          <div className="flex items-center gap-3">
+            <Avatar>
+              <AvatarImage src="/avatars/user.jpg" alt="Usuario" />
+              <AvatarFallback>U</AvatarFallback>
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium">Usuario Cliente</p>
+              <p className="text-xs text-muted-foreground truncate">
+                cliente@ejemplo.com
+              </p>
+            </div>
+            <Button variant="ghost" size="icon" asChild>
+              <a href="/">
+                <LogOut className="h-4 w-4" />
+              </a>
+            </Button>
           </div>
         </div>
-        <Link href="/" className="mt-4 block">
-          <Button
-            variant="ghost"
-            className={cn(
-              "w-full justify-start gap-3",
-              isCollapsed && "justify-center"
-            )}
-          >
-            <LogOut className="h-5 w-5" />
-            <span className={isCollapsed ? "hidden" : ""}>Salir</span>
-          </Button>
-        </Link>
-      </div>
-    </div>
+      </ScrollArea>
+    </>
   )
 } 

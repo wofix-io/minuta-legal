@@ -2,7 +2,7 @@
 
 import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { StatsCharts } from "@/components/dashboard/stats-charts"
-import { Card } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FileText, Clock, CheckCircle, Users } from "lucide-react"
@@ -46,104 +46,71 @@ export function AbogadoDashboard() {
   ]
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex min-h-screen">
       <DashboardSidebar />
-      
-      <main className="flex-1 overflow-y-auto p-6 md:ml-64">
-        <div className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-2 bg-primary/10 rounded-full">
-                  <FileText className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Ganancias Totales
-                  </h3>
-                  <p className="text-2xl font-bold">
-                    {formatCurrency(metrics.totalEarnings)}
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-2 bg-primary/10 rounded-full">
-                  <Clock className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Minutas Pendientes
-                  </h3>
-                  <p className="text-2xl font-bold">{metrics.pendingMinutes}</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-2 bg-primary/10 rounded-full">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Minutas Completadas
-                  </h3>
-                  <p className="text-2xl font-bold">{metrics.completedMinutes}</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4">
-              <div className="flex items-center gap-4">
-                <div className="p-2 bg-primary/10 rounded-full">
-                  <Users className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Clientes Activos
-                  </h3>
-                  <p className="text-2xl font-bold">{metrics.activeClients}</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <StatsCharts />
-
-          <Card className="p-4">
-            <Tabs defaultValue="pendientes">
-              <TabsList>
-                <TabsTrigger value="pendientes">Pendientes</TabsTrigger>
-                <TabsTrigger value="completadas">Completadas</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="pendientes">
-                <div className="space-y-4">
-                  <Card className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-medium">Minuta de Compra Venta</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Cliente: Juan Pérez
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          Fecha: 20/03/2024
-                        </p>
-                      </div>
-                      <Button>Revisar</Button>
-                    </div>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="completadas">
-                <p>No hay minutas completadas</p>
-              </TabsContent>
-            </Tabs>
+      <main className="flex-1 p-4 md:p-6 lg:p-8">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Ganancias Totales</CardTitle>
+              <CardDescription>{formatCurrency(metrics.totalEarnings)}</CardDescription>
+            </CardHeader>
           </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Minutas Pendientes</CardTitle>
+              <CardDescription>{metrics.pendingMinutes}</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Minutas Completadas</CardTitle>
+              <CardDescription>{metrics.completedMinutes}</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Clientes Activos</CardTitle>
+              <CardDescription>{metrics.activeClients}</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+
+        <div className="mt-8">
+          <StatsCharts />
+        </div>
+
+        <div className="mt-8">
+          <Tabs defaultValue="pending" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="pending">Pendientes</TabsTrigger>
+              <TabsTrigger value="completed">Completadas</TabsTrigger>
+            </TabsList>
+            <TabsContent value="pending" className="mt-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {/* Ejemplo de minuta pendiente */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Minuta de Compraventa</CardTitle>
+                    <CardDescription>Cliente: Carlos Pérez</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      Fecha de solicitud: 15/03/2024
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">Revisar</Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            </TabsContent>
+            <TabsContent value="completed" className="mt-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {/* Aquí irían las minutas completadas */}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
     </div>
