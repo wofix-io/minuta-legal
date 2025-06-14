@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Home, Calendar, Mail, User, Settings, LogOut } from "lucide-react"
+import { Menu, Home, Calendar, Mail, User, Settings, LogOut, Upload } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 
@@ -34,6 +34,11 @@ const menuItems = [
     title: "Configuración",
     href: "/dashboard/settings",
     icon: Settings
+  },
+  {
+    title: "Subir Plantilla",
+    href: "/dashboard/templates",
+    icon: Upload
   }
 ]
 
