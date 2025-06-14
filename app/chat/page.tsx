@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Send, Clock, User, MessageSquare, FileText, Menu, Home } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
+import { DialogTitle } from "@/components/ui/dialog"
 
 interface Message {
   id: number
@@ -193,6 +194,7 @@ export default function ChatPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 p-0">
+                <DialogTitle className="sr-only">Perfil</DialogTitle>
                 <div className="flex h-16 items-center border-b px-4">
                   <h2 className="text-lg font-semibold">Perfil</h2>
                 </div>
@@ -314,64 +316,6 @@ export default function ChatPage() {
             </Button>
           </form>
         </div>
-      </div>
-
-      {/* Sidebar de Perfil - Desktop */}
-      <div className="hidden md:block w-80 border-l bg-card">
-        <div className="flex h-16 items-center border-b px-4">
-          <h2 className="text-lg font-semibold">Perfil</h2>
-        </div>
-        <ScrollArea className="h-[calc(100vh-4rem)]">
-          <div className="p-4 space-y-6">
-            <div className="flex flex-col items-center">
-              <Avatar className="h-24 w-24">
-                <AvatarImage src="/avatars/user.jpg" alt="Usuario" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-              <h3 className="mt-4 text-lg font-semibold">Usuario Cliente</h3>
-              <p className="text-sm text-muted-foreground">cliente@ejemplo.com</p>
-            </div>
-
-            <Tabs defaultValue="info">
-              <TabsList className="w-full">
-                <TabsTrigger value="info" className="flex-1">
-                  <User className="mr-2 h-4 w-4" />
-                  Información
-                </TabsTrigger>
-                <TabsTrigger value="chats" className="flex-1">
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Chats
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="info" className="space-y-4">
-                <div>
-                  <h4 className="text-sm font-medium">Nombre Completo</h4>
-                  <p className="text-sm text-muted-foreground">Usuario Cliente</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium">Correo Electrónico</h4>
-                  <p className="text-sm text-muted-foreground">cliente@ejemplo.com</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium">Teléfono</h4>
-                  <p className="text-sm text-muted-foreground">+56 9 1234 5678</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="chats" className="space-y-4">
-                <div>
-                  <h4 className="text-sm font-medium">Chats Activos</h4>
-                  <p className="text-sm text-muted-foreground">2 chats en curso</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-medium">Minutas Generadas</h4>
-                  <p className="text-sm text-muted-foreground">5 minutas</p>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </ScrollArea>
       </div>
     </div>
   )
