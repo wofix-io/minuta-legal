@@ -1,34 +1,31 @@
 "use client"
 
 import { useState } from "react"
-import { DashboardSidebar } from "@/components/dashboard/sidebar"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Calendar as CalendarIcon, Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { Calendar } from "@/components/ui/calendar"
+import { DashboardSidebar } from "@/components/dashboard/sidebar"
 
 const eventos = [
   {
     id: 1,
     titulo: "Reunión con Cliente",
-    fecha: "2024-03-25",
-    hora: "10:00",
-    tipo: "reunion"
+    fecha: "15 de Marzo",
+    hora: "10:00 AM",
   },
   {
     id: 2,
-    titulo: "Revisión de Minuta",
-    fecha: "2024-03-26",
-    hora: "15:30",
-    tipo: "revision"
+    titulo: "Presentación de Proyecto",
+    fecha: "15 de Marzo",
+    hora: "2:00 PM",
   },
   {
     id: 3,
-    titulo: "Firma de Documentos",
-    fecha: "2024-03-27",
-    hora: "11:00",
-    tipo: "firma"
-  }
+    titulo: "Llamada de Seguimiento",
+    fecha: "15 de Marzo",
+    hora: "4:30 PM",
+  },
 ]
 
 export default function CalendarPage() {
