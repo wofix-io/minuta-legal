@@ -2,16 +2,16 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { MinutaService } from "@/services/minuta-service"
 import { cn } from "@/lib/utils"
 
-type Message = {
+// Incluye id y timestamp en el tipo Message
+interface Message {
+  id: string
   role: "user" | "assistant"
   content: string
+  timestamp: Date
 }
 
 interface ChatInterfaceProps {
@@ -26,47 +26,31 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
     datos: Record<string, string>
     faltantes: string[]
   } | null>(null)
-  const [isGenerating, setIsGenerating] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim()) return
 
     // Agregar mensaje del usuario
-    const userMessage: Message = { role: "user", content: input }
-    setMessages(prev => [...prev, userMessage])
-    setInput("")
-    setIsGenerating(true)
-
-    // Simular respuesta de la IA
-    setTimeout(() => {
-      const aiResponse = generateAIResponse(input)
-      setMessages(prev => [...prev, { role: "assistant", content: aiResponse }])
-      setIsGenerating(false)
-    }, 1000)
-  }
-
-  const generateAIResponse = (userInput: string): string => {
-    // Aquí iría la lógica real de la IA
-    // Por ahora, simulamos respuestas básicas
-    if (userInput.toLowerCase().includes("compra venta auto")) {
-      const template = MinutaService.getTemplateByTipo("compra_venta_vehiculo")
-      if (template) {
-        setMinutaData({
-          tipo: template.tipo,
-          datos: Object.fromEntries(
-            template.campos.map(campo => [campo.nombre, ""])
-          ),
-          faltantes: template.campos.map(campo => campo.descripcion)
-        })
-        return "Entiendo que necesitas una minuta de compra venta de vehículo. Para generar la minuta, necesito los siguientes datos:\n\n" +
-          template.campos.map((campo, index) => 
-            `${index + 1}. ${campo.descripcion}`
-          ).join("\n") +
-          "\n\nPor favor, proporciona estos datos para generar la minuta."
-      }
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: input,
+      role: "user",
+      timestamp: new Date(),
     }
-    return "Entiendo tu solicitud. ¿Podrías proporcionarme más detalles sobre el tipo de minuta legal que necesitas?"
+    setMessages((prev) => [...prev, userMessage])
+    setInput("")
+
+    // Simular respuesta del asistente
+    setTimeout(() => {
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "Esta es una versión demo. En la versión completa, podrás generar minutas legales personalizadas y recibir asistencia legal especializada.",
+        role: "assistant",
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, assistantMessage])
+    }, 1000)
   }
 
   const handleGenerarMinuta = () => {
@@ -74,13 +58,15 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
 
     // Verificar que todos los campos requeridos estén completos
     const camposFaltantes = Object.entries(minutaData.datos)
-      .filter(([_, value]) => !value.trim())
+      .filter(([, value]) => !value.trim())
       .map(([key]) => key)
 
     if (camposFaltantes.length > 0) {
       setMessages(prev => [...prev, {
+        id: Date.now().toString(),
         role: "assistant",
-        content: "Por favor, completa todos los campos requeridos antes de generar la minuta."
+        content: "Por favor, completa todos los campos requeridos antes de generar la minuta.",
+        timestamp: new Date(),
       }])
       return
     }
@@ -93,9 +79,9 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
     <div className="flex h-[calc(100vh-4rem)] flex-col">
       <div className="flex-1 overflow-y-auto p-4 md:p-6">
         <div className="mx-auto max-w-3xl space-y-4">
-          {messages.map((message, index) => (
+          {messages.map((message) => (
             <div
-              key={index}
+              key={message.id}
               className={cn(
                 "flex w-full",
                 message.role === "user" ? "justify-end" : "justify-start"
@@ -110,16 +96,12 @@ export function ChatInterface({ onGenerarMinuta }: ChatInterfaceProps) {
                 )}
               >
                 <p className="text-sm">{message.content}</p>
+                <span className="block text-xs opacity-60 mt-1">
+                  {message.timestamp.toLocaleTimeString()}
+                </span>
               </div>
             </div>
           ))}
-          {isGenerating && (
-            <div className="flex justify-start">
-              <Card className="max-w-[80%] p-4 bg-muted">
-                <p>Generando respuesta...</p>
-              </Card>
-            </div>
-          )}
         </div>
       </div>
 

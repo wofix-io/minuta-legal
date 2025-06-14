@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Send, Clock, User, MessageSquare, FileText, Menu, X, Home } from "lucide-react"
+import { Send, Clock, User, MessageSquare, FileText, Menu, Home } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import Link from "next/link"
 
 interface Message {
   id: number
@@ -167,9 +168,9 @@ export default function ChatPage() {
         <div className="flex h-16 items-center justify-between border-b px-4 md:px-6">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" asChild>
-              <a href="/">
+              <Link href="/">
                 <Home className="h-5 w-5" />
-              </a>
+              </Link>
             </Button>
             <Avatar>
               <AvatarImage src="/avatars/abogado1.jpg" alt="Abogado" />

@@ -45,13 +45,13 @@ export default function MailPage() {
             </Button>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex items-center gap-2 max-w-sm">
+            <Search className="h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar correos..."
+              placeholder="Buscar correo..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="max-w-sm"
-              icon={<Search className="h-4 w-4" />}
             />
           </div>
 

@@ -2,12 +2,12 @@
 
 import { useState } from "react"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Home, Calendar, Mail, User, Settings, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
 
 const menuItems = [
   {
@@ -38,7 +38,6 @@ const menuItems = [
 ]
 
 export function DashboardSidebar() {
-  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -81,10 +80,10 @@ function SidebarContent() {
               className="w-full justify-start"
               asChild
             >
-              <a href={item.href}>
+              <Link href={item.href}>
                 <item.icon className="mr-2 h-4 w-4" />
                 {item.title}
-              </a>
+              </Link>
             </Button>
           ))}
         </div>
@@ -102,9 +101,9 @@ function SidebarContent() {
               </p>
             </div>
             <Button variant="ghost" size="icon" asChild>
-              <a href="/">
+              <Link href="/">
                 <LogOut className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

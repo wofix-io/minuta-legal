@@ -5,8 +5,6 @@ import { StatsCharts } from "@/components/dashboard/stats-charts"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FileText, Clock, CheckCircle, Users } from "lucide-react"
-import { MinutaRequest } from "@/types/minuta"
 
 // Función para formatear números en formato chileno
 const formatCurrency = (amount: number) => {
@@ -26,24 +24,6 @@ export function AbogadoDashboard() {
     completedMinutes: 12,
     activeClients: 5
   }
-
-  const solicitudesPendientes: MinutaRequest[] = [
-    {
-      id: "1",
-      tipo: "Compra Venta de Vehículo",
-      cliente: "Juan Pérez",
-      fecha: "2024-03-20",
-      estado: "pendiente",
-      datos: {
-        vendedor: "María González",
-        comprador: "Juan Pérez",
-        marca: "Toyota",
-        modelo: "Corolla",
-        año: "2020",
-        precio: "15000000"
-      }
-    }
-  ]
 
   return (
     <div className="flex min-h-screen">

@@ -11,6 +11,7 @@ import { useState } from "react"
 import { users } from "@/lib/data"
 import { Home } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export function LoginForm({
   className,
@@ -136,12 +137,18 @@ export function LoginForm({
               </div>
             </div>
           </form>
-          <div className="bg-muted relative hidden md:block">
-            <img
-              src="/placeholder.svg"
-              alt="Imagen de fondo"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
+          <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+            <div className="absolute inset-0 bg-zinc-900" />
+            <div className="relative z-20 flex items-center text-lg font-medium">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="mr-2"
+              />
+              Minuta Legal
+            </div>
           </div>
         </CardContent>
       </Card>

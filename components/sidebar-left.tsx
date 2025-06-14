@@ -24,7 +24,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarRail,
 } from "@/components/ui/sidebar"
 
 // This is sample data.
@@ -244,14 +243,14 @@ const data = {
           emoji: "🗺️",
         },
         {
-          name: "Travel Bucket List & Inspiration",
-          url: "#",
-          emoji: "🌎",
-        },
-        {
-          name: "Travel Journal & Photo Gallery",
+          name: "Travel Memories & Photos",
           url: "#",
           emoji: "📸",
+        },
+        {
+          name: "Bucket List & Dream Destinations",
+          url: "#",
+          emoji: "✨",
         },
       ],
     },
@@ -262,7 +261,7 @@ export function SidebarLeft({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar className="border-r-0" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
         <NavMain items={data.navMain} />
@@ -272,7 +271,6 @@ export function SidebarLeft({
         <NavWorkspaces workspaces={data.workspaces} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarRail />
     </Sidebar>
   )
 }

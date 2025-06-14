@@ -5,7 +5,6 @@ import { DashboardSidebar } from "@/components/dashboard/sidebar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Dialog,
@@ -55,26 +54,16 @@ const templates: Template[] = [
 
 export default function TemplatesPage() {
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null)
-  const [isEditing, setIsEditing] = useState(false)
-  const [newTemplate, setNewTemplate] = useState<Partial<Template>>({
-    title: "",
-    type: "",
-    content: "",
-    variables: []
-  })
 
   const handleCreateTemplate = () => {
     // Aquí iría la lógica para crear una nueva plantilla
-    setIsEditing(false)
   }
 
-  const handleEditTemplate = (template: Template) => {
-    setSelectedTemplate(template)
-    setIsEditing(true)
+  const handleEditTemplate = () => {
+    // Aquí iría la lógica para editar una plantilla
   }
 
-  const handleDeleteTemplate = (id: number) => {
+  const handleDeleteTemplate = () => {
     // Aquí iría la lógica para eliminar una plantilla
   }
 
@@ -104,17 +93,12 @@ export default function TemplatesPage() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Título</label>
                     <Input
-                      value={newTemplate.title}
-                      onChange={(e) => setNewTemplate({...newTemplate, title: e.target.value})}
                       placeholder="Ej: Minuta de Compra Venta"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Tipo</label>
-                    <Select
-                      value={newTemplate.type}
-                      onValueChange={(value) => setNewTemplate({...newTemplate, type: value})}
-                    >
+                    <Select>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecciona un tipo" />
                       </SelectTrigger>
@@ -129,8 +113,6 @@ export default function TemplatesPage() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Contenido</label>
                     <Textarea
-                      value={newTemplate.content}
-                      onChange={(e) => setNewTemplate({...newTemplate, content: e.target.value})}
                       placeholder="Escribe el contenido de la plantilla..."
                       className="min-h-[200px]"
                     />
@@ -138,11 +120,6 @@ export default function TemplatesPage() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Variables</label>
                     <Input
-                      value={newTemplate.variables?.join(", ")}
-                      onChange={(e) => setNewTemplate({
-                        ...newTemplate,
-                        variables: e.target.value.split(",").map(v => v.trim())
-                      })}
                       placeholder="Ej: NOMBRE, RUT, DIRECCION"
                     />
                     <p className="text-xs text-muted-foreground">
@@ -151,7 +128,7 @@ export default function TemplatesPage() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsEditing(false)}>
+                  <Button variant="outline" onClick={() => {}}>
                     Cancelar
                   </Button>
                   <Button onClick={handleCreateTemplate}>
@@ -162,13 +139,13 @@ export default function TemplatesPage() {
             </Dialog>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex items-center gap-2 max-w-sm">
+            <Search className="h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar plantillas..."
+              placeholder="Buscar plantilla..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="max-w-sm"
-              icon={<Search className="h-4 w-4" />}
             />
           </div>
 
@@ -204,14 +181,14 @@ export default function TemplatesPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleEditTemplate(template)}
+                      onClick={() => handleEditTemplate()}
                     >
                       <Edit2 className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteTemplate(template.id)}
+                      onClick={() => handleDeleteTemplate()}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

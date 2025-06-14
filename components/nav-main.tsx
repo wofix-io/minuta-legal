@@ -1,7 +1,6 @@
 "use client"
 
-import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react"
-
+import { IconCirclePlusFilled, IconMail } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import {
   SidebarGroup,
@@ -10,14 +9,16 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { ComponentType, SVGProps } from "react"
 
+// Icon puede ser cualquier componente React
 export function NavMain({
   items,
 }: {
   items: {
     title: string
     url: string
-    icon?: Icon
+    icon?: ComponentType<SVGProps<SVGSVGElement>>
   }[]
 }) {
   return (
@@ -46,7 +47,7 @@ export function NavMain({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
+                {item.icon && <item.icon className="h-4 w-4" />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
